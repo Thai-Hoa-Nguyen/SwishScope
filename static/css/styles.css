@@ -1,0 +1,348 @@
+/* === Google Fonts === */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+/* === Base Font Setup === */
+body {
+  font-family: 'Funnel Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+h1, h2, h3 {
+  font-family: 'DM Serif Text', serif;
+}
+
+/* === General Reset === */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* === Smooth Scrolling === */
+html {
+  scroll-behavior: smooth;
+}
+
+/* === Hero Slider === */
+.hero-slider {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(1px) brightness(0.5);
+  opacity: 0;
+  animation: fade 30s infinite;
+}
+
+/* Individual slide delays */
+.slide1 { background-image: url('https://cdn.nba.com/manage/2025/03/luka-driving.jpg'); animation-delay: 0s; }
+.slide2 { background-image: url('https://basketballforever.com/wp-content/uploads/2023/01/LeBron-1.jpg'); animation-delay: 5s; }
+.slide3 { background-image: url('https://images8.alphacoders.com/132/thumb-1920-1326586.jpeg'); animation-delay: 10s; }
+.slide4 { background-image: url('https://images.alphacoders.com/776/thumb-1920-776026.jpg'); animation-delay: 15s; }
+.slide5 { background-image: url('https://www.ksnt.com/wp-content/uploads/sites/86/2022/03/GettyImages-1388054830.jpg?w=2560&h=1440&crop=1'); animation-delay: 20s; }
+.slide6 { background-image: url('https://images.sidearmdev.com/convert?url=https%3A%2F%2Fdxbhsrqyrr690.cloudfront.net%2Fsidearm.nextgen.sites%2Ffightingillini.com%2Fimages%2F2025%2F3%2F21%2FMBO00991.jpg&type=webp'); animation-delay: 25s; }
+
+/* Smooth fade transition */
+@keyframes fade {
+  0% { opacity: 0; z-index: 1; }
+  5% { opacity: 1; z-index: 2; }
+  30% { opacity: 1; z-index: 2; }
+  35% { opacity: 0; z-index: 1; }
+  100% { opacity: 0; z-index: 0; }
+}
+
+/* === Overlay === */
+.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 1;
+}
+
+/* === Navbar === */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px 60px;
+  font-size: 1.1rem;
+  position: relative;
+  z-index: 2;
+}
+
+.logo a {
+  font-weight: bold;
+  font-size: 1.8rem;
+  text-decoration: none;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.logo a:hover {
+  opacity: 0.7;
+}
+
+.nav-links a {
+  margin-left: 30px;
+  text-decoration: none;
+  color: white;
+  transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+  opacity: 0.7;
+}
+
+/* === Hero Content === */
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 800px;
+  text-align: center;
+  color: white;
+  z-index: 2;
+  padding: 20px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* === Light Button === */
+.btn-light {
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  background: linear-gradient(135deg, #cbcbcb, #f3f3f3);
+  color: #000;
+  padding: 15px 35px;
+  font-size: 1rem;
+  font-weight: 400;
+  text-decoration: none;
+  border: none;
+  border-radius: 30px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.btn-light:hover {
+  background: #000;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 10px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* === Section Styling === */
+section {
+  padding: 100px 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  color: #333;
+}
+
+/* === Teams pages styles === */
+.navbar.fixed-top {
+  background-color: #111;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.nav-links a.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.teams-header {
+  background-color: #f8f9fa;
+  padding: 120px 0 80px;
+  text-align: center;
+}
+
+.teams-header h1 {
+  font-size: 2.8rem;
+  margin-bottom: 15px;
+}
+
+.teams-header p {
+  font-size: 1.2rem;
+  color: #6c757d;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.teams-section {
+  padding: 80px 0;
+  background-color: #fff;
+}
+
+.team-card {
+  margin-bottom: 30px;
+}
+
+.team-card .card {
+  border: none;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.team-card .card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+.team-card .card-img-top {
+  height: 180px;
+  object-fit: contain;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.team-card .card-title {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.team-conference {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+.team-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.team-stat {
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 0.85rem;
+  color: #6c757d;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #212529;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border: none;
+  padding: 10px 20px;
+  font-weight: 500;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #0069d9;
+  transform: translateY(-2px);
+}
+
+.pagination .page-link {
+  color: #007bff;
+  border: none;
+  border-radius: 5px;
+  margin: 0 3px;
+  transition: all 0.3s;
+  padding: 10px 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #007bff;
+}
+
+/* === Footer === */
+.footer {
+  background-color: #212529;
+  color: #fff;
+  padding: 30px 0;
+  text-align: center;
+}
+
+/* === Responsive Styles === */
+@media (max-width: 992px) {
+  .navbar {
+    padding: 20px 40px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .teams-header h1 {
+    font-size: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+    flex-direction: column;
+  }
+  
+  .nav-links {
+    margin-top: 10px;
+  }
+  
+  .nav-links a {
+    margin-left: 15px;
+    font-size: 0.9rem;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .btn-light {
+    padding: 12px 25px;
+  }
+  
+  .teams-header {
+    padding: 100px 0 60px;
+  }
+  
+  .teams-header h1 {
+    font-size: 2rem;
+  }
+}
+

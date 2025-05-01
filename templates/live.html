@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SwishScope | Live Tracker</title>
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Funnel+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap + Your Styles -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/live.css') }}">
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar fixed-top">
+    <div class="logo"><a href="{{ url_for('homepage') }}">SwishScope</a></div>
+    <nav class="nav-links">
+      <a href="{{ url_for('teams_page') }}">Teams</a>
+      <a href="{{ url_for('players_page') }}">Players</a>
+      <a href="{{ url_for('live_page') }}" class="active">Live Tracker</a>
+      <a href="{{ url_for('analyze_page') }}">Analyze</a>
+      <a href="{{ url_for('homepage') }}#auth">Sign In</a>
+    </nav>
+  </header>
+
+  <!-- Live Tracker Header -->
+  <div class="live-header">
+    <div class="container text-center">
+      <h1>Live Game Tracker</h1>
+      <p>Real-time scores, stats, and play-by-play for NBA and NCAA games</p>
+    </div>
+  </div>
+
+  <!-- Live Games Section -->
+  <section class="live-games-section">
+    <div class="container">
+      <!-- Live Games Filter -->
+      <div class="filter-bar mb-4">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="date-picker">
+              <button class="date-nav" id="prevDay">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                </svg>
+              </button>
+              <div class="current-date" id="currentDate">Friday, Mar 29</div>
+              <button class="date-nav" id="nextDay">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="col-md-8">
+            <div class="league-filter">
+              <button class="league-btn active" data-league="all">All Games</button>
+              <button class="league-btn" data-league="nba">NBA</button>
+              <button class="league-btn" data-league="ncaa">NCAA</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="live-indicator">
+        <span class="live-dot"></span> LIVE GAMES
+      </div>
+      
+      <div class="row" id="liveGamesContainer">
+        <!-- Live Game Card 1 -->
+        <div class="col-lg-6 game-card-wrapper">
+          <div class="game-card live">
+            <div class="game-status">
+              <span class="live-badge">LIVE</span>
+              <span class="game-time">Q3 - 04:27</span>
+            </div>
+            <div class="teams-container">
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612738/global/L/logo.svg" alt="Boston Celtics">
+                </div>
+                <div class="team-name">Celtics</div>
+                <div class="team-score">76</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612737/global/L/logo.svg" alt="Atlanta Hawks">
+                </div>
+                <div class="team-name">Hawks</div>
+                <div class="team-score">64</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="quarters">
+                <div class="quarter">
+                  <div class="quarter-label">Q1</div>
+                  <div class="quarter-scores">
+                    <span>24</span>
+                    <span>19</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q2</div>
+                  <div class="quarter-scores">
+                    <span>26</span>
+                    <span>22</span>
+                  </div>
+                </div>
+                <div class="quarter active">
+                  <div class="quarter-label">Q3</div>
+                  <div class="quarter-scores">
+                    <span>26</span>
+                    <span>23</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q4</div>
+                  <div class="quarter-scores">
+                    <span>-</span>
+                    <span>-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary watch-btn">Watch Live</button>
+          </div>
+        </div>
+        
+        <!-- Live Game Card 2 -->
+        <div class="col-lg-6 game-card-wrapper">
+          <div class="game-card live">
+            <div class="game-status">
+              <span class="live-badge">LIVE</span>
+              <span class="game-time">Q2 - 08:12</span>
+            </div>
+            <div class="teams-container">
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612749/global/L/logo.svg" alt="Milwaukee Bucks">
+                </div>
+                <div class="team-name">Bucks</div>
+                <div class="team-score">45</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612741/global/L/logo.svg" alt="Chicago Bulls">
+                </div>
+                <div class="team-name">Bulls</div>
+                <div class="team-score">41</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="quarters">
+                <div class="quarter">
+                  <div class="quarter-label">Q1</div>
+                  <div class="quarter-scores">
+                    <span>28</span>
+                    <span>26</span>
+                  </div>
+                </div>
+                <div class="quarter active">
+                  <div class="quarter-label">Q2</div>
+                  <div class="quarter-scores">
+                    <span>17</span>
+                    <span>15</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q3</div>
+                  <div class="quarter-scores">
+                    <span>-</span>
+                    <span>-</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q4</div>
+                  <div class="quarter-scores">
+                    <span>-</span>
+                    <span>-</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-primary watch-btn">Watch Live</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Upcoming Games Section -->
+  <section class="upcoming-games-section">
+    <div class="container">
+      <h2 class="section-title">Upcoming Games</h2>
+      
+      <div class="row" id="upcomingGamesContainer">
+        <!-- Upcoming Game Card 1 -->
+        <div class="col-lg-4 col-md-6 game-card-wrapper">
+          <div class="game-card upcoming">
+            <div class="game-status">
+              <span class="upcoming-badge">TODAY</span>
+              <span class="game-time">8:00 PM ET</span>
+            </div>
+            <div class="teams-container">
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612747/global/L/logo.svg" alt="Los Angeles Lakers">
+                </div>
+                <div class="team-name">Lakers</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612755/global/L/logo.svg" alt="Philadelphia 76ers">
+                </div>
+                <div class="team-name">76ers</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="broadcast">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  <path d="M3 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8-1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                </svg>
+                <span>ABC, ESPN</span>
+              </div>
+              <div class="arena">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+                <span>Wells Fargo Center</span>
+              </div>
+            </div>
+            <button class="btn btn-primary set-reminder-btn">Set Reminder</button>
+          </div>
+        </div>
+        
+        <!-- Upcoming Game Card 2 -->
+        <div class="col-lg-4 col-md-6 game-card-wrapper">
+          <div class="game-card upcoming">
+            <div class="game-status">
+              <span class="upcoming-badge">TODAY</span>
+              <span class="game-time">9:30 PM ET</span>
+            </div>
+            <div class="teams-container">
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612744/global/L/logo.svg" alt="Golden State Warriors">
+                </div>
+                <div class="team-name">Warriors</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612743/global/L/logo.svg" alt="Denver Nuggets">
+                </div>
+                <div class="team-name">Nuggets</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="broadcast">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  <path d="M3 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8-1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                </svg>
+                <span>TNT, NBA TV</span>
+              </div>
+              <div class="arena">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+                <span>Ball Arena</span>
+              </div>
+            </div>
+            <button class="btn btn-primary set-reminder-btn">Set Reminder</button>
+          </div>
+        </div>
+        
+        <!-- Upcoming Game Card 3 (NCAA) -->
+        <div class="col-lg-4 col-md-6 game-card-wrapper">
+          <div class="game-card upcoming ncaa">
+            <div class="game-status">
+              <span class="upcoming-badge ncaa-badge">NCAA</span>
+              <span class="game-time">7:00 PM ET</span>
+            </div>
+            <div class="teams-container">
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://content.sportslogos.net/logos/32/718/full/kansas_jayhawks_logo_primary_19412303.png" alt="Kansas">
+                </div>
+                <div class="team-name">Kansas</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://content.sportslogos.net/logos/31/710/full/north_carolina_tar_heels_logo_ncaa_5349.png" alt="North Carolina">
+                </div>
+                <div class="team-name">UNC</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="broadcast">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm15 0a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  <path d="M3 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm8-1a1 1 0 1 0 0-2 1 1 0 0 0 0 2zm0 1a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
+                </svg>
+                <span>CBS</span>
+              </div>
+              <div class="arena">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                  <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+                </svg>
+                <span>Dean Smith Center</span>
+              </div>
+            </div>
+            <button class="btn btn-primary set-reminder-btn">Set Reminder</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Completed Games Section -->
+  <section class="completed-games-section">
+    <div class="container">
+      <h2 class="section-title">Completed Games</h2>
+      
+      <div class="row" id="completedGamesContainer">
+        <!-- Completed Game Card 1 -->
+        <div class="col-lg-4 col-md-6 game-card-wrapper">
+          <div class="game-card completed">
+            <div class="game-status">
+              <span class="completed-badge">FINAL</span>
+            </div>
+            <div class="teams-container">
+              <div class="team winner">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612758/global/L/logo.svg" alt="Sacramento Kings">
+                </div>
+                <div class="team-name">Kings</div>
+                <div class="team-score">122</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612762/global/L/logo.svg" alt="Utah Jazz">
+                </div>
+                <div class="team-name">Jazz</div>
+                <div class="team-score">114</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="quarters">
+                <div class="quarter">
+                  <div class="quarter-label">Q1</div>
+                  <div class="quarter-scores">
+                    <span>30</span>
+                    <span>25</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q2</div>
+                  <div class="quarter-scores">
+                    <span>32</span>
+                    <span>31</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q3</div>
+                  <div class="quarter-scores">
+                    <span>28</span>
+                    <span>30</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q4</div>
+                  <div class="quarter-scores">
+                    <span>32</span>
+                    <span>28</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-primary recap-btn">View Recap</button>
+          </div>
+        </div>
+        
+        <!-- Completed Game Card 2 -->
+        <div class="col-lg-4 col-md-6 game-card-wrapper">
+          <div class="game-card completed">
+            <div class="game-status">
+              <span class="completed-badge">FINAL</span>
+            </div>
+            <div class="teams-container">
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612748/global/L/logo.svg" alt="Miami Heat">
+                </div>
+                <div class="team-name">Heat</div>
+                <div class="team-score">105</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team winner">
+                <div class="team-logo">
+                  <img src="https://cdn.nba.com/logos/nba/1610612754/global/L/logo.svg" alt="Indiana Pacers">
+                </div>
+                <div class="team-name">Pacers</div>
+                <div class="team-score">109</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="quarters">
+                <div class="quarter">
+                  <div class="quarter-label">Q1</div>
+                  <div class="quarter-scores">
+                    <span>27</span>
+                    <span>24</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q2</div>
+                  <div class="quarter-scores">
+                    <span>26</span>
+                    <span>28</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q3</div>
+                  <div class="quarter-scores">
+                    <span>25</span>
+                    <span>30</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">Q4</div>
+                  <div class="quarter-scores">
+                    <span>27</span>
+                    <span>27</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-primary recap-btn">View Recap</button>
+          </div>
+        </div>
+        
+        <!-- Completed Game Card 3 (NCAA) -->
+        <div class="col-lg-4 col-md-6 game-card-wrapper">
+          <div class="game-card completed ncaa">
+            <div class="game-status">
+              <span class="completed-badge ncaa-badge">FINAL</span>
+            </div>
+            <div class="teams-container">
+              <div class="team winner">
+                <div class="team-logo">
+                  <img src="https://content.sportslogos.net/logos/35/882/full/duke_blue_devils_logo_secondary_19992158.png" alt="Duke">
+                </div>
+                <div class="team-name">Duke</div>
+                <div class="team-score">88</div>
+              </div>
+              <div class="vs">vs</div>
+              <div class="team">
+                <div class="team-logo">
+                  <img src="https://content.sportslogos.net/logos/35/878/full/creighton_bluejays_logo_secondary_20127649.png" alt="Creighton">
+                </div>
+                <div class="team-name">Creighton</div>
+                <div class="team-score">81</div>
+              </div>
+            </div>
+            <div class="game-info">
+              <div class="quarters">
+                <div class="quarter">
+                  <div class="quarter-label">1H</div>
+                  <div class="quarter-scores">
+                    <span>42</span>
+                    <span>36</span>
+                  </div>
+                </div>
+                <div class="quarter">
+                  <div class="quarter-label">2H</div>
+                  <div class="quarter-scores">
+                    <span>46</span>
+                    <span>45</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-primary recap-btn">View Recap</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Game Details Modal -->
+  <div class="modal fade" id="gameDetailModal" tabindex="-1" role="dialog" aria-labelledby="gameDetailModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="gameDetailModalLabel">Game Details</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="game-header">
+            <div class="team-detail">
+              <img id="team1Logo" src="" alt="Team 1">
+              <h2 id="team1Name"></h2>
+              <div class="team-record" id="team1Record"></div>
+            </div>
+            <div class="game-score">
+              <div id="team1Score" class="score"></div>
+              <div class="vs-indicator">VS</div>
+              <div id="team2Score" class="score"></div>
+            </div>
+            <div class="team-detail">
+              <img id="team2Logo" src="" alt="Team 2">
+              <h2 id="team2Name"></h2>
+              <div class="team-record" id="team2Record"></div>
+            </div>
+          </div>
+          
+          <ul class="nav nav-tabs mt-4" id="gameDetailTabs" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="boxscore-tab" data-toggle="tab" href="#boxscore" role="tab">Box Score</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="play-by-play-tab" data-toggle="tab" href="#play-by-play" role="tab">Play-by-Play</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="team-stats-tab" data-toggle="tab" href="#team-stats" role="tab">Team Stats</a>
+            </li>
+          </ul>
+          
+          <div class="tab-content" id="gameDetailTabContent">
+            <div class="tab-pane fade show active" id="boxscore" role="tabpanel">
+              <!-- Box score content will be populated via JavaScript -->
+              <div class="boxscore-container">
+                <p>Loading box score...</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="play-by-play" role="tabpanel">
+              <!-- Play by play content will be populated via JavaScript -->
+              <div class="play-by-play-container">
+                <p>Loading play-by-play...</p>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="team-stats" role="tabpanel">
+              <!-- Team stats content will be populated via JavaScript -->
+              <div class="team-stats-container">
+                <p>Loading team stats...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>&copy; 2025 SwishScope | All Rights Reserved</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ url_for('static', filename='js/live.js') }}"></script>
+
+</body>
+</html> 
