@@ -22,11 +22,12 @@ Whether you're a fantasy basketball fan, a data analyst, or a curious viewer, **
 
 ## Key Features
 
-### Team Stats & Filter
+### Team Stats and Filters
 
-- Displays win/loss records, win percentages, and conference info  
-- Filter by league (NBA, NCAA) or conference  
-- Search for specific teams using a live search bar  
+- Displays win/loss records, win percentages, conference, and division info  
+- Filter teams by league or conference  
+- Search teams using a live search bar  
+- Dynamic team cards with logos and standings data  
 
 ---
 
@@ -34,53 +35,62 @@ Whether you're a fantasy basketball fan, a data analyst, or a curious viewer, **
 
 ![Player Stats](img_readme/steph.png)
 
-- View sortable, searchable player tables with stats like PPG, RPG, APG, FG%, 3P%, and more  
-- Filter by league, team, or position (PG, SG, SF, PF, C)  
-- Tabs for Overall, Offense, Defense, Shooting, and Advanced categories  
-- Detailed modal view for each player showing bio, trends, game logs, and advanced splits  
+- Sortable, searchable player table featuring stats like PPG, RPG, APG, FG%, 3P%, and more  
+- Filter by league, team, and position (PG, SG, SF, PF, C)  
+- Tabs for viewing by category: Overall, Offense, Defense, Shooting, and Advanced  
+- Modal popup for each player with full bio, image, current season stats, and game logs  
+- Toggle between full season, last 10 games, and last game stats (feature in progress)  
 
 ---
 
-### Analyze & Predict
+### Analyze and Compare
 
 ![Team Comparison](img_readme/teancompare.png)
 
-- Compare two teams side-by-side using radar charts and stat comparisons  
-- Visual win probability predictions based on key performance indicators  
-- Player performance charts and strength/weakness breakdowns  
+- Compare two teams side-by-side using radar charts and stat breakdowns  
+- View win probability predictions based on key performance indicators  
+- Analyze player impact using dynamic chart visuals  
 
 ---
 
-## Views
+## Views and Pages
 
-- `homepage.html`: Landing page with animated hero section and search bar  
-- `teams.html`: Displays team cards and filters for browsing NBA/NCAA teams  
-- `players.html`: Player stats table with filter options and modal details  
-- `analyze.html`: Offers side-by-side team comparisons and player trend analysis  
-
----
-
-## Data & Scripts
-
-- **`app.py`**: Flask backend serving page routes and player API endpoints  
-- **`players.js`**: Fetches and renders player stats and detail views  
-- **`teams.js`**: Manages filtering and rendering of team cards  
-- **`analyze.js`**: Handles team/player comparison logic and chart rendering  
-- **`styles.css`**, `players.css`: Style sheets for visual presentation  
+- `homepage.html`: Landing page with animated welcome and search intro  
+- `teams.html`: Interactive team cards with league and conference filters  
+- `players.html`: Player stats dashboard with modal details and game logs  
+- `analyze.html`: Team and player comparison tools with charts and predictions  
 
 ---
 
-## Technologies
+## Architecture and Data Flow
 
-- **Backend**: Python, Flask, NBA API (`nba_api`)  
-- **Frontend**: HTML5, CSS3, Bootstrap 4, JavaScript ES6  
-- **Charts**: Chart.js for performance trends and radar comparisons  
-- **Design**: Responsive UI with modern aesthetics and Google Fonts  
+- Flask backend hosts core data logic and API endpoints for players, teams, and game logs  
+- Node.js server serves static assets and proxies API calls from the frontend to Flask  
+- Game logs are generated using player season data and dynamically served via Flask endpoints  
+
+---
+
+## Scripts and Styling
+
+- `app.py`: Flask backend that loads and processes player/team data from NBA API  
+- `server.js`: Node.js Express server that serves the frontend and proxies data to Flask  
+- `players.js`: Loads and filters players, renders tables, and manages detail modal logic  
+- `teams.js`: Loads team data, handles league/conference filtering and search  
+- `analyze.js`: Handles selection and stat comparison for teams and players  
+- `styles.css`, `players.css`, `live.css`: Responsive styles and theme-based presentation  
+
+---
+
+## Technologies Used
+
+- **Backend**: Python, Flask, NBA API  
+- **Proxy Layer**: Node.js with Express and Axios  
+- **Frontend**: HTML5, CSS3, JavaScript (ES6), Bootstrap  
+- **Charts**: Chart.js for visualizing comparisons and trends  
+- **Deployment Ready**: Works locally via Node + Flask combo  
 
 ---
 
 ## Summary
 
-**SwishScope** is a comprehensive basketball analytics platform that empowers users to analyze games and players like pros. With dynamic filtering, chart-based insights, and real-time data, it’s designed to be the ultimate tool for fans, scouts, and analysts alike.
-
----
+**SwishScope** is a complete basketball analysis tool built for fans, analysts, and developers alike. It combines real-time stats, predictive analysis, and clean visual design into a single interactive platform. Whether scouting players or comparing teams, SwishScope brings the power of basketball data directly to your screen.
