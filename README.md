@@ -58,7 +58,7 @@ Whether you're a fantasy basketball fan, a data analyst, or a curious viewer, **
 - `homepage.html`: Landing page with animated welcome and search intro  
 - `teams.html`: Interactive team cards with league and conference filters  
 - `players.html`: Player stats dashboard with modal details and game logs  
-- `analyze.html`: Team and player comparison tools with charts and predictions  
+- `analyze.html`: Team and player comparison tools with charts and predictions (feature in progress)
 
 ---
 
@@ -76,7 +76,7 @@ Whether you're a fantasy basketball fan, a data analyst, or a curious viewer, **
 - `server.js`: Node.js Express server that serves the frontend and proxies data to Flask  
 - `players.js`: Loads and filters players, renders tables, and manages detail modal logic  
 - `teams.js`: Loads team data, handles league/conference filtering and search  
-- `analyze.js`: Handles selection and stat comparison for teams and players  
+- `analyze.js`: Handles selection and stat comparison for teams and players (feature in progress)
 - `styles.css`, `players.css`, `live.css`: Responsive styles and theme-based presentation  
 
 ---
