@@ -84,16 +84,3 @@ Whether you're a fantasy basketball fan, a data analyst, or a curious viewer, **
 **SwishScope** is a comprehensive basketball analytics platform that empowers users to analyze games and players like pros. With dynamic filtering, chart-based insights, and real-time data, it’s designed to be the ultimate tool for fans, scouts, and analysts alike.
 
 ---
-
-## How to Run Locally
-
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/swishscope.git
-cd swishscope
-
-# Install dependencies
-pip install flask nba_api
-
-# Run the Flask server
-python app.py
