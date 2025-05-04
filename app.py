@@ -361,4 +361,4 @@ def get_player_total_stats(player_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001, debug=True)
