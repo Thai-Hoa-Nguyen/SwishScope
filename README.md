@@ -75,7 +75,7 @@ Whether you're a fantasy basketball fan, a data analyst, or a curious viewer, **
 - `app.py`: Flask backend that loads and processes player/team data from NBA API  
 - `server.js`: Node.js Express server that serves the frontend and proxies data to Flask  
 - `players.js`: Loads and filters players, renders tables, and manages detail modal logic  
-- `teams.js`: Loads team data, handles league/conference filtering and search  
+- `teams.js`: Loads team data, handles league/conference filtering and search (feature in progress)  
 - `analyze.js`: Handles selection and stat comparison for teams and players (feature in progress)
 - `styles.css`, `players.css`, `live.css`: Responsive styles and theme-based presentation  
 
